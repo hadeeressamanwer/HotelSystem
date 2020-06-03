@@ -171,20 +171,21 @@ void Lcd_init(void)
 		if(( GPIO_PORTC_DATA_R&0xF0)==0xF0)return 'h';	
 		return 'h';
 	}	
-	if(col==0xE0){LCD_DATA(k_map[row][0]);return k_map[row][0];}
-	if(col==0xD0){LCD_DATA(k_map[row][1]);return k_map[row][1];}
-	if(col==0xB0){LCD_DATA(k_map[row][2]);return k_map[row][2];}
-	if(col==0x70){LCD_DATA(k_map[row][3]);return k_map[row][3];}
+	if(col==0xE0){LCD_DATA(k_map[row][0]); LCD_command(0x06); //to move cursor
+	return k_map[row][0];}
+	if(col==0xD0){LCD_DATA(k_map[row][1]); LCD_command(0x06);return k_map[row][1];}
+	if(col==0xB0){LCD_DATA(k_map[row][2]); LCD_command(0x06);return k_map[row][2];}
+	if(col==0x70){LCD_DATA(k_map[row][3]); LCD_command(0x06);return k_map[row][3];}
 	return 0;
 }
 void guestRoom(char r ,char roomPassword[10][4])
 { int i;
 	char z;
-	char enteredPassword[4];//={'1','2','3','4'}; for simulation
+	char enteredPassword[4]={'1','2','3','4'};// for simulation
 	int correct=1; 
 	keypad_init();
 	 Lcd_init();	
-	while(1)
+	while(0)
 	{
 		z=get_keypad();
 		if(z!='h'){enteredPassword[i]=z;i=i+1;}
