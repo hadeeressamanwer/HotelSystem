@@ -132,22 +132,16 @@ void Lcd_init(void)
 			
    }
   char get_keypad(void){
-	 
 	int row ,col;
-	const char k_map[4][4]=
-		{
-  
+	const char k_map[4][4]={
     {'1','2','3','A'},
 		{'4','5','6','B'},	
    	{'7','8','9','C'},
-		{'*','0','#','D'}
-		
+		{'*','0','#','D'}	
 		};
-	
 	Lcd_init();
 	keypad_init();
-	while (1)
-	{	
+	while (1){	
 		row =0;
 	  GPIO_PORTD_DATA_R= 0x0E;
    	delayUs(2);
@@ -176,16 +170,16 @@ void Lcd_init(void)
 	if(col==0xD0){LCD_DATA(k_map[row][1]); LCD_command(0x06);return k_map[row][1];}
 	if(col==0xB0){LCD_DATA(k_map[row][2]); LCD_command(0x06);return k_map[row][2];}
 	if(col==0x70){LCD_DATA(k_map[row][3]); LCD_command(0x06);return k_map[row][3];}
-	return 0;
+	return 'h';
 }
 void guestRoom(char r ,char roomPassword[10][4])
 { int i;
 	char z;
-	char enteredPassword[4]={'1','2','3','4'};// for simulation
+	char enteredPassword[4];//={'1','2','3','4'};// for simulation
 	int correct=1; 
 	keypad_init();
 	 Lcd_init();	
-	while(0)
+	while(1)
 	{
 		z=get_keypad();
 		if(z!='h'){enteredPassword[i]=z;i=i+1;}
@@ -258,7 +252,7 @@ int main()
 	else
 		{
   
-	if ((GPIO_PORTF_DATA_R&0x10)==0x00&&state[x]=='o')  //if switch2 is pressed means guest wants to enter password
+	if ((GPIO_PORTF_DATA_R&0x10)==0x00&&state[x]=='o')  //if switch is pressed means guest wants to enter password
 	
 	{ 
 	   GPIO_PORTF_DATA_R=0x08;// green lamp will turn on;
